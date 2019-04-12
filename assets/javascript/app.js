@@ -1,4 +1,3 @@
-
 // weather API key-14e14c44973465093bbd1db899dbec19
 
 // eventbrite API key-U6LFLVBFHEWVLSLFOV
@@ -99,17 +98,16 @@ $(document).ready(function () {
 
     // read from input tags
 
-    var userInput = 
-    {
-    city: $("#city-id").val().trim(),
-    state: $("#state-id").val(),
-    date: $("#date-id").val().trim()
+    var userInput = {
+      city: $("#city-id").val().trim(),
+      state: $("#state-id").val(),
+      date: $("#date-id").val().trim()
     }
 
     fireData.ref().push(userInput);
 
-    var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;   
+    var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;
 
     location.href = eventUrl;
-
   });
+});
