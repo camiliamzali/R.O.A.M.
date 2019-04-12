@@ -1,19 +1,18 @@
-
 // weather API key-14e14c44973465093bbd1db899dbec19
 
 // eventbrite API key-U6LFLVBFHEWVLSLFOV
 
 // variable for evenbrite API
-var briteUrl="https://"
+var briteUrl = "https://"
 
 // create variable to hold weather API -path/parameters()
-var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + location + "APPID=14e14c44973465093bbd1db899dbec19"
+var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=14e14c44973465093bbd1db899dbec19"
 
 $.ajax({
   url: weatherUrl,
   method: "GET"
 }).then(function (response) {
- 
+
 })
 
 // $(document).ready(function () {
@@ -70,8 +69,11 @@ $(document).ready(function () {
   // read query parameters from the url
   var urlParams = new URLSearchParams(window.location.search);
 
+  console.log(urlParams)
+
   var paramObj = {
-    place: urlParams.get("place"),
+    city: urlParams.get("place"),
+    state: urlParams.get("state"),
     date: urlParams.get("date")
   }
 
@@ -81,13 +83,13 @@ $(document).ready(function () {
     event.preventDefault();
 
     // read from input tags
-    var place = $("#place-id").val().trim();
+    var city = $("#city-id").val().trim();
+    var state = $("#state-id").val().trim();
     var date = $("#date-id").val().trim();
 
-    var eventUrl = "events.html?place=" + place + "&date=" + date;
+    var eventUrl = "events.html?city=" + city + "&state=" + state + "&date=" + date;
 
     location.href = eventUrl;
 
   })
 });
-

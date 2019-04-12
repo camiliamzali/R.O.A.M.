@@ -46,12 +46,15 @@ body {
 
 }
 
-.hero-title {
+.hero-title,
+.event-title {
   font-family: 'Heebo',
     sans-serif;
 }
 
-.hero-sub-title {
+.hero-sub-title,
+input,
+.lead {
   font-family: 'PT Sans',
     sans-serif;
 }
