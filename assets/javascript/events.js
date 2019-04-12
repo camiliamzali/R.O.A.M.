@@ -1,17 +1,5 @@
 $(document).ready(function () {
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyANafHvgYnRELAFSWMgZCFsPAfB2L_TNtM",
-    authDomain: "roam-project-x.firebaseapp.com",
-    databaseURL: "https://roam-project-x.firebaseio.com",
-    projectId: "roam-project-x",
-    storageBucket: "roam-project-x.appspot.com",
-    messagingSenderId: "290287520982"
-  };
-  firebase.initializeApp(config);
-
-  var fireData = firebase.database();
-
+  
   // read query parameters from the url
   var urlParams = new URLSearchParams(window.location.search);
 
