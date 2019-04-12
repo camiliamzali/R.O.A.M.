@@ -1,3 +1,4 @@
+
 // weather API key-14e14c44973465093bbd1db899dbec19
 
 // eventbrite API key-U6LFLVBFHEWVLSLFOV
@@ -63,8 +64,21 @@ $.ajax({
 
 //   // do not delete these brackets!!!
 // });
+
 $(document).ready(function () {
 
+  var config = {
+    apiKey: "AIzaSyCdBtqVdqAJ1OaV0tHQOwswrD39wviIFC0",
+    authDomain: "roam-project-1.firebaseapp.com",
+    databaseURL: "https://roam-project-1.firebaseio.com",
+    projectId: "roam-project-1",
+    storageBucket: "",
+    messagingSenderId: "259803411135"
+  };
+  firebase.initializeApp(config);
+
+
+  var fireData = firebase.database();
 
   // read query parameters from the url
   var urlParams = new URLSearchParams(window.location.search);
@@ -79,17 +93,23 @@ $(document).ready(function () {
 
   console.log(paramObj);
 
+
   $("#searchBtn").on("click", function (event) {
     event.preventDefault();
 
     // read from input tags
-    var city = $("#city-id").val().trim();
-    var state = $("#state-id").val().trim();
-    var date = $("#date-id").val().trim();
 
-    var eventUrl = "events.html?city=" + city + "&state=" + state + "&date=" + date;
+    var userInput = 
+    {
+    city: $("#city-id").val().trim(),
+    state: $("#state-id").val(),
+    date: $("#date-id").val().trim()
+    }
+
+    fireData.ref().push(userInput);
+
+    var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;   
 
     location.href = eventUrl;
 
-  })
-});
+  });
