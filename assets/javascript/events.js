@@ -1,43 +1,52 @@
 $(document).ready(function () {
   // Initialize Firebase
-  // var config = {
-  //   apiKey: "AIzaSyCdBtqVdqAJ1OaV0tHQOwswrD39wviIFC0",
-  //   authDomain: "roam-project-1.firebaseapp.com",
-  //   databaseURL: "https://roam-project-1.firebaseio.com",
-  //   projectId: "roam-project-1",
-  //   storageBucket: "",
-  //   messagingSenderId: "259803411135"
-  // };
-  // firebase.initializeApp(config);
+  var config = {
+    apiKey: "AIzaSyCdBtqVdqAJ1OaV0tHQOwswrD39wviIFC0",
+    authDomain: "roam-project-1.firebaseapp.com",
+    databaseURL: "https://roam-project-1.firebaseio.com",
+    projectId: "roam-project-1",
+    storageBucket: "",
+    messagingSenderId: "259803411135"
+  };
+  firebase.initializeApp(config);
 
-  // create variable to hold weather API -path/parameters()
-  
+  var fireData = firebase.database();
 
-  // var fireData = firebase.database();
-  // weather API key-14e14c44973465093bbd1db899dbec19
+  // read query parameters from the url
+  var urlParams = new URLSearchParams(window.location.search);
 
-  // take user input, and put it into an object
+  var paramObj = {
+    place: urlParams.get("place"),
+    date: urlParams.get("date")
+  }
+  console.log(paramObj);
 
-  // var userInput = {
-  //   citySearch: $("#event-input").val().trim(),
-  //   dateSearch: $("date-input").val().trim(),
-  // }
 
-  // adds user input values to firebase
-  // fireData.ref().push(userInput);
+  fireData.ref().on("child_added", function (childSnapshot) {
+    console.log(childSnapshot.val());
+    console.log("this is child_added");
 
-  // create a variable for each API url that will be used
+    var eventsData = childSnapshot.val();
+    searchCity = eventsData.city;
+    searchState = eventsData.state
+    searchDate = eventsData.date
 
-  // var leaflyUrl = 
+    // create a variable for each API url that will be used
 
-  // var eventfulUrl = 
+    // var weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${.....}&APPID=14e14c44973465093bbd1db899dbec19`
+    var ticketMasterUrl = `https://app.ticketmaster.com/discovery/v2/events.json?size=1&city=${searchCity}&stateCode=${searchState}&startDateTime=${searchDate}`
 
-  // set-up an AJAX call to retrieve data dumps for each API
+    // make an ajax call for each separate API key
 
-  // create shorthand variables to refer to the information received
-  // ex.
-  //   var leaflyResults = leaflyResponse.data
-  //   var briteResults = eventbriteResponse.data
+    $.ajax({
+        url: ticketMasterUrl,
+        method: "GET"
+      })
+      .then(function (ticketMasterResponse) {
+        console.log(ticketMasterResponse);
 
-  // do not delete these brackets!!!
+      });
+
+  });
+
 });
