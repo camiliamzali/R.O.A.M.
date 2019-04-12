@@ -3,7 +3,7 @@ This site will take in search terms for location and date of interest.  It will 
 
 ## API's:
 * OpenWeatherMap
-* Eventbrite
+* Eventful
 
 ## Languages:
 * HTML
@@ -12,7 +12,7 @@ This site will take in search terms for location and date of interest.  It will 
 * CSS Bootstrap
 
 ## Team Members:
-Steve Adamcsik
-Chris Oliveira
-Marsden Ricketts
-Camilia Mzali
+* Steve Adamcsik
+* Chris Oliveira
+* Marsden Ricketts
+* Camilia Mzali
