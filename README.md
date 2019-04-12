@@ -3,7 +3,7 @@ This site will take in search terms for location and date of interest.  It will 
 
 ## API's:
 * OpenWeatherMap
-* Eventbrite
+* Eventful
 
 ## Languages:
 * HTML
