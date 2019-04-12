@@ -5,9 +5,10 @@ $(document).ready(function () {
     authDomain: "roam-project-1.firebaseapp.com",
     databaseURL: "https://roam-project-1.firebaseio.com",
     projectId: "roam-project-1",
-    storageBucket: "",
+    storageBucket: "roam-project-1.appspot.com",
     messagingSenderId: "259803411135"
   };
+  firebase.initializeApp(config);
   firebase.initializeApp(config);
 
   var fireData = firebase.database();

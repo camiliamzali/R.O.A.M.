@@ -53,8 +53,39 @@ body {
 }
 
 .hero-sub-title,
+.lead,
 input,
-.lead {
+select,
+option {
   font-family: 'PT Sans',
     sans-serif;
+}
+
+.event-hero-image {
+  background: url(../images/events-hero2.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom: black 3px
+}
+
+.event-title,
+.lead {
+  color: #fff;
+  text-shadow: black 2px 2px;
+}
+
+.search-box {
+  /* background-color: linear-gradient(to bottom right, #272A41, #41445C); */
+  /* background-color: #7B7D93; */
+  border-radius: 15px;
+  box-shadow: 0 5px 15px;
+}
+
+.state-style {
+  height: 50px;
+}
+
+.card-wrapper {
+  box-shadow: 0 20px 30px;
 }
