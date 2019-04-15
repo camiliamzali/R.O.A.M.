@@ -1,12 +1,12 @@
 $(document).ready(function () {
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyCdBtqVdqAJ1OaV0tHQOwswrD39wviIFC0",
-    authDomain: "roam-project-1.firebaseapp.com",
-    databaseURL: "https://roam-project-1.firebaseio.com",
-    projectId: "roam-project-1",
-    storageBucket: "",
-    messagingSenderId: "259803411135"
+    apiKey: "AIzaSyANafHvgYnRELAFSWMgZCFsPAfB2L_TNtM",
+    authDomain: "roam-project-x.firebaseapp.com",
+    databaseURL: "https://roam-project-x.firebaseio.com",
+    projectId: "roam-project-x",
+    storageBucket: "roam-project-x.appspot.com",
+    messagingSenderId: "290287520982"
   };
   firebase.initializeApp(config);
 
@@ -16,37 +16,27 @@ $(document).ready(function () {
   var urlParams = new URLSearchParams(window.location.search);
 
   var paramObj = {
-    place: urlParams.get("place"),
+    cit: urlParams.get("city"),
+    place: urlParams.get("state"),
     date: urlParams.get("date")
   }
   console.log(paramObj);
 
+  // create a variable for each API url that will be used
 
-  fireData.ref().on("child_added", function (childSnapshot) {
-    console.log(childSnapshot.val());
-    console.log("this is child_added");
+  // var weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${.....}&APPID=14e14c44973465093bbd1db899dbec19`
 
-    var eventsData = childSnapshot.val();
-    searchCity = eventsData.city;
-    searchState = eventsData.state
-    searchDate = eventsData.date
+  var ticketMasterUrl = `https://app.ticketmaster.com/discovery/v2/events.json?size=1&city=${paramObj.City}&stateCode=${paramObj.State}&startDateTime=${paramObj.Date}`
 
-    // create a variable for each API url that will be used
+  // make an ajax call for each separate API key
 
-    // var weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${.....}&APPID=14e14c44973465093bbd1db899dbec19`
-    var ticketMasterUrl = `https://app.ticketmaster.com/discovery/v2/events.json?size=1&city=${searchCity}&stateCode=${searchState}&startDateTime=${searchDate}`
+  $.ajax({
+      url: ticketMasterUrl,
+      method: "GET"
+    })
+    .then(function (ticketMasterResponse) {
+      console.log(ticketMasterResponse);
 
-    // make an ajax call for each separate API key
-
-    $.ajax({
-        url: ticketMasterUrl,
-        method: "GET"
-      })
-      .then(function (ticketMasterResponse) {
-        console.log(ticketMasterResponse);
-
-      });
-
-  });
+    });
 
 });
