@@ -1,12 +1,4 @@
-
-// weather API key-14e14c44973465093bbd1db899dbec19
-
-// create variable to hold weather API -path/parameters()
-var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=14e14c44973465093bbd1db899dbec19"
-
-
 $(document).ready(function () {
-
 
   // read query parameters from the url
   var urlParams = new URLSearchParams(window.location.search);
