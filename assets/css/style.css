@@ -77,18 +77,16 @@ option {
 
 .search-box {
   /* background-color: linear-gradient(to bottom right, #272A41, #41445C); */
-  /* background-color: #7B7D93; */
+  background-color: #868e96;
   border-radius: 15px;
-  box-shadow: 0 15px 40px;
+  box-shadow: 0 10px 30px;
+  border: solid #495057 1px;
 }
 
 .state-style {
   height: 50px;
 }
 
-.card-wrapper {
-  box-shadow: 0 20px 30px;
-}
 
 .card-img-top {
   width: 100%;
@@ -96,4 +94,6 @@ option {
   object-fit: cover;
 }
 
-.card-wrapper {}
+.jumbotron {
+  margin-bottom: -85px;
+}
