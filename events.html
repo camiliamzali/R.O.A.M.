@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
   <link href="https://fonts.googleapis.com/css?family=Heebo:700|PT+Sans" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="assets/css/style.css">
   <title>Events</title>
 </head>
@@ -15,12 +17,12 @@
 <body>
   <div class="jumbotron jumbotron-fluid event-hero-image border-dark border-bottom">
     <div class="container">
-      <h1 class="display-4 event-title text-light">Events in <span id="destination"></span></h1>
-      <p class="lead text-light">For <span id="date"></span></p>
+      <h1 class="display-4 event-title text-light">Events in <span class="text-capitalize" id="destination"></span></h1>
+      <p class="lead text-light pb-5">For <span id="date"></span></p>
     </div>
   </div>
   <main>
-    <div class="container search-box bg-dark mb-5 p-4 mx-auto">
+    <div class="container search-box mb-5 p-4 mx-auto">
       <form class="textbox-form row">
         <div class="input-group">
           <div class="row align-items-center">
@@ -98,7 +100,7 @@
       </form>
     </div>
     </div>
-    <div class="container">
+    <div class="container mb-5">
       <div class="card card-wrapper">
         <div class="card-body">
           <div class="row mx-2" id="event-wrapper">
@@ -112,8 +114,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
   <script src="assets/javascript/events.js"></script>
 
 

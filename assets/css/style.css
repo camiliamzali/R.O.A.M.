@@ -77,15 +77,23 @@ option {
 
 .search-box {
   /* background-color: linear-gradient(to bottom right, #272A41, #41445C); */
-  /* background-color: #7B7D93; */
+  background-color: #868e96;
   border-radius: 15px;
-  box-shadow: 0 5px 15px;
+  box-shadow: 0 10px 30px;
+  border: solid #495057 1px;
 }
 
 .state-style {
   height: 50px;
 }
 
-.card-wrapper {
-  box-shadow: 0 20px 30px;
+
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+}
+
+.jumbotron {
+  margin-bottom: -85px;
 }
