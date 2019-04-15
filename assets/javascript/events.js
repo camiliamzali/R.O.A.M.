@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  
+
   // read query parameters from the url
   var urlParams = new URLSearchParams(window.location.search);
 
@@ -28,35 +28,84 @@ $(document).ready(function () {
       console.log(tmResults);
       console.log(tmResults.length);
 
-      tmResults.forEach(function(event) {
+      tmResults.forEach(function (event) {
         console.log(event);
         console.log(event.images[0].url);
         console.log(event.name);
         console.log(event._embedded.venues[0].name);
         console.log(event.dates.start.localTime);
         console.log(event.dates.start.localDate);
-        var eventDiv = $(`<div class="event-wrapper m-2 col-12 col-md">`);
+        var eventDiv = $(`<div class="card-wrapper col-12 col-md-4">`);
 
-        
+
         var eventImg = $(`<img class="card-img-top" src=${event.images[0].url} />`);
         var eventDivBody = $(`<div class="card-body">`);
-        
+
         var eventH5 = $(`<h5 class="card-title">`);
         eventH5.text(event.name);
         var eventP = $(`<p class="card-text">`);
-        
+
         var venueName = event._embedded.venues[0].name
         var eventDate = event.dates.start.localDate
+        var eventDateFormatted = moment(eventDate, "YYYY-MM-DDTHH:mm:ssZ").format("M-DD-YYYY");
         var eventTime = event.dates.start.localTime
-        eventP.append(venueName, eventDate, eventTime);
+        var eventTimeFormatted = moment(eventTime, "HH:mm:ss").format("h:mm a");
+        eventP.append(`${venueName}<br>${eventDateFormatted}<br>${eventTimeFormatted}`);
         eventDivBody.append(eventH5, eventP);
         eventDiv.append(eventImg, eventDivBody);
 
+        $("#destination").text(paramObj.city);
+        $("#date").text(eventDateFormatted);
+        $("#event-wrapper").append(eventDiv);
+      });
+      $("#searchBtn").on("click", function (event) {
+        event.preventDefault();
 
-        console.log(eventDiv);
-        $("#event-cards").append(eventDiv);
-      })
+        // read from input tags
 
+        var userInput = {
+          city: $("#city-id").val().trim(),
+          state: $("#state-id").val(),
+          date: $("#date-id").val().trim()
+        };
+
+        var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;
+
+        $.ajax({
+            url: ticketMasterUrl,
+            method: "GET"
+          })
+          .then(function (ticketMasterResponse) {
+
+            var tmResults = ticketMasterResponse._embedded.events
+
+            tmResults.forEach(function (event) {
+
+              var eventDiv = $(`<div class="card-wrapper col-12 col-md-4">`);
+
+              var eventImg = $(`<img class="card-img-top" src=${event.images[0].url}/>`);
+              var eventDivBody = $(`<div class="card-body">`);
+
+              var eventH5 = $(`<h5 class="card-title">`);
+              eventH5.text(event.name);
+              var eventP = $(`<p class="card-text">`);
+
+              var venueName = event._embedded.venues[0].name
+              var eventDate = event.dates.start.localDate
+              var eventDateFormatted = moment(eventDate, "YYYY-MM-DDTHH:mm:ssZ").format("M-DD-YYYY");
+              var eventTime = event.dates.start.localTime
+              var eventTimeFormatted = moment(eventTime, "HH:mm:ss").format("h:mm a");
+              eventP.append(`${venueName}<br>${eventDateFormatted}<br>${eventTimeFormatted}`);
+              eventDivBody.append(eventH5, eventP);
+              eventDiv.append(eventImg, eventDivBody);
+
+              $("#destination").text(paramObj.city);
+              $("#date").text(eventDateFormatted);
+              $("#event-wrapper").append(eventDiv);
+
+              location.href = eventUrl;
+            });
+          });
+      });
     });
-
 });
