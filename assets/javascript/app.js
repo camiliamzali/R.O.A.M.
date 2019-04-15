@@ -1,33 +1,40 @@
+
+// weather API key-14e14c44973465093bbd1db899dbec19
+
+// create variable to hold weather API -path/parameters()
+var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=14e14c44973465093bbd1db899dbec19"
+
+
 $(document).ready(function () {
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyANafHvgYnRELAFSWMgZCFsPAfB2L_TNtM",
-    authDomain: "roam-project-x.firebaseapp.com",
-    databaseURL: "https://roam-project-x.firebaseio.com",
-    projectId: "roam-project-x",
-    storageBucket: "roam-project-x.appspot.com",
-    messagingSenderId: "290287520982"
-  };
-  firebase.initializeApp(config);
 
-  var fireData = firebase.database();
 
-  $('#searchBtn').on('click', function (event) {
+  // read query parameters from the url
+  var urlParams = new URLSearchParams(window.location.search);
+
+  console.log(urlParams)
+
+  var paramObj = {
+    city: urlParams.get("city"),
+    state: urlParams.get("state"),
+    date: urlParams.get("date")
+  }
+
+  console.log(paramObj);
+
+  $("#searchBtn").on("click", function (event) {
     event.preventDefault();
+
+    // read from input tags
 
     var userInput = {
       city: $("#city-id").val().trim(),
       state: $("#state-id").val(),
-      date: $("#date-id").val()
-    }
+      date: $("#date-id").val().trim()
+    };
 
-    // read from input tags
+    var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;
 
-    fireData.ref().push(userInput, function () {
-      var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;
-
-      location.href = eventUrl;
-    });
-
+    location.href = eventUrl;
+   
   });
 });
