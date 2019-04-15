@@ -8,7 +8,6 @@ $(document).ready(function () {
     date: urlParams.get("date"),
     state: urlParams.get("state")
   };
-  console.log(paramObj);
 
   ticketMasterDate = moment(paramObj.date, "YYYY-MM-DD").format("YYYY-MM-DDTHH:mm:ssZ")
 
@@ -23,19 +22,19 @@ $(document).ready(function () {
       method: "GET"
     })
     .then(function (ticketMasterResponse) {
+      console.log(ticketMasterResponse);
 
       var tmResults = ticketMasterResponse._embedded.events
-      console.log(tmResults);
-      console.log(tmResults.length);
+
+      if (!ticketMasterResponse._embedded) {
+        $("#event-wrapper").text("No Search Results Found");
+        return false;
+      }
 
       tmResults.forEach(function (event) {
-        console.log(event);
-        console.log(event.images[0].url);
-        console.log(event.name);
-        console.log(event._embedded.venues[0].name);
-        console.log(event.dates.start.localTime);
-        console.log(event.dates.start.localDate);
-        var eventDiv = $(`<div class="card-wrapper mb-5 pt-3 px-3 pb-1 col-12 col-md-4">`);
+        console.log(event.url);
+        var eventDiv = $(`<div class="card-wrapper col-12 col-md-4">`);
+        var ticketButton = $(`<a href=${event.url} target="_blank" class="btn btn-block btn-danger">`).text("Get Tickets");
 
 
         var eventImg = $(`<img class="card-img-top" src=${event.images[0].url} />`);
@@ -51,13 +50,15 @@ $(document).ready(function () {
         var eventTime = event.dates.start.localTime
         var eventTimeFormatted = moment(eventTime, "HH:mm:ss").format("h:mm a");
         eventP.append(`${venueName}<br>${eventDateFormatted}<br>${eventTimeFormatted}`);
-        eventDivBody.append(eventH5, eventP);
+        eventDivBody.append(eventH5, eventP, ticketButton);
         eventDiv.append(eventImg, eventDivBody);
 
         $("#destination").text(paramObj.city);
         // $("#date").text(eventDateFormatted);
         $("#event-wrapper").append(eventDiv);
+
       });
+
       $("#searchBtn").on("click", function (event) {
         event.preventDefault();
 
@@ -81,6 +82,8 @@ $(document).ready(function () {
 
             tmResults.forEach(function (event) {
 
+            
+              var ticketButton = $(`<button class="btn btn-block btn-danger">`).text("Get Tickets")
               var eventDiv = $(`<div class="card-wrapper mb-5 pt-3 px-3 col-12 col-md-4">`);
 
               var eventImg = $(`<img class="card-img-top" src=${event.images[0].url}/>`);
@@ -104,6 +107,7 @@ $(document).ready(function () {
               $("#event-wrapper").append(eventDiv);
 
               location.href = eventUrl;
+
             });
           });
       });
