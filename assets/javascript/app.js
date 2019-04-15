@@ -21,9 +21,8 @@ $(document).ready(function () {
     var userInput = {
       city: $("#city-id").val().trim(),
       state: $("#state-id").val(),
-
       date: $("#date-id").val().trim()
-    }
+    };
 
     var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;
 
