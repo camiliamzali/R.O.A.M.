@@ -35,7 +35,7 @@ $(document).ready(function () {
         console.log(event._embedded.venues[0].name);
         console.log(event.dates.start.localTime);
         console.log(event.dates.start.localDate);
-        var eventDiv = $(`<div class="card-wrapper col-12 col-md-4">`);
+        var eventDiv = $(`<div class="card-wrapper mb-5 pt-3 px-3 pb-1 col-12 col-md-4">`);
 
 
         var eventImg = $(`<img class="card-img-top" src=${event.images[0].url} />`);
@@ -55,79 +55,86 @@ $(document).ready(function () {
         eventDiv.append(eventImg, eventDivBody);
 
         $("#destination").text(paramObj.city);
-        $("#date").text(eventDateFormatted);
+        // $("#date").text(eventDateFormatted);
         $("#event-wrapper").append(eventDiv);
       });
       $("#searchBtn").on("click", function (event) {
         event.preventDefault();
 
-        console.log(eventDiv);
-        $("#event-wrapper").append(eventDiv);
-      })
+        // read from input tags
 
-      var userInput = {
-        city: $("#city-id").val().trim(),
-        state: $("#state-id").val(),
-        date: $("#date-id").val().trim()
-      };
+        var userInput = {
+          city: $("#city-id").val().trim(),
+          state: $("#state-id").val(),
+          date: $("#date-id").val().trim()
+        };
 
-      var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;
+        var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;
 
-      $.ajax({
-          url: ticketMasterUrl,
-          method: "GET"
-        })
-        .then(function (ticketMasterResponse) {
+        $.ajax({
+            url: ticketMasterUrl,
+            method: "GET"
+          })
+          .then(function (ticketMasterResponse) {
 
-          var tmResults = ticketMasterResponse._embedded.events
+            var tmResults = ticketMasterResponse._embedded.events
 
-          tmResults.forEach(function (event) {
+            tmResults.forEach(function (event) {
 
-            var eventDiv = $(`<div class="card-wrapper col-12 col-md-4">`);
+              var eventDiv = $(`<div class="card-wrapper mb-5 pt-3 px-3 col-12 col-md-4">`);
 
-            var eventImg = $(`<img class="card-img-top" src=${event.images[0].url}/>`);
-            var eventDivBody = $(`<div class="card-body">`);
+              var eventImg = $(`<img class="card-img-top" src=${event.images[0].url}/>`);
+              var eventDivBody = $(`<div class="card-body">`);
 
-            var eventH5 = $(`<h5 class="card-title">`);
-            eventH5.text(event.name);
-            var eventP = $(`<p class="card-text">`);
+              var eventH5 = $(`<h5 class="card-title">`);
+              eventH5.text(event.name);
+              var eventP = $(`<p class="card-text">`);
+              var ticketButton = $(`<button class="btn btn-block btn-danger">`).text("Get Tickets!");
+              var venueName = event._embedded.venues[0].name
+              var eventDate = event.dates.start.localDate
+              var eventDateFormatted = moment(eventDate, "YYYY-MM-DDTHH:mm:ssZ").format("M-DD-YYYY");
+              var eventTime = event.dates.start.localTime
+              var eventTimeFormatted = moment(eventTime, "HH:mm:ss").format("h:mm a");
+              eventP.append(`${venueName}<br>${eventDateFormatted}<br>${eventTimeFormatted}`);
+              eventDivBody.append(eventH5, eventP, ticketButton);
+              eventDiv.append(eventImg, eventDivBody);
 
-            var venueName = event._embedded.venues[0].name
-            var eventDate = event.dates.start.localDate
-            var eventDateFormatted = moment(eventDate, "YYYY-MM-DDTHH:mm:ssZ").format("M-DD-YYYY");
-            var eventTime = event.dates.start.localTime
-            var eventTimeFormatted = moment(eventTime, "HH:mm:ss").format("h:mm a");
-            eventP.append(`${venueName}<br>${eventDateFormatted}<br>${eventTimeFormatted}`);
-            eventDivBody.append(eventH5, eventP);
-            eventDiv.append(eventImg, eventDivBody);
+              $("#destination").text(paramObj.city);
+              $("#date").text(eventDateFormatted);
+              $("#event-wrapper").append(eventDiv);
 
-            $("#destination").text(paramObj.city);
-            $("#date").text(eventDateFormatted);
-            $("#event-wrapper").append(eventDiv);
-
-            location.href = eventUrl;
+              location.href = eventUrl;
+            });
           });
-        });
+      });
     });
-
   //slideshow jumbotron
-  var backgroundImg = ["assets/images/hero-image.jpg", "assets/images/events-hero.jpg", "assets/images/events-hero2.jpg", "assets/images/events-hero3.jpg", "assets/images/events-hero4.jpg, assets/images/events-hero4.jpg"];
+  var backgroundImg = ["assets/images/events-hero2.jpg", "assets/images/events-hero3.jpg", "assets/images/events-hero4.jpg, assets/images/events-hero4.jpg"];
   var showImage;
   var count = 0;
 
   //slideshow function
   function displayBackground() {
     $(".event-hero-image").css({
-      "background": "url(" + backgroundImg[count] + ")"
+      "background": "url(" + backgroundImg[count] + ")",
+      "background-position": "center",
+      "background-size": "cover",
+      "background-repeat": "no-repeat",
+      "border-bottom": "black 3px",
+      "animation-duration": "2s"
     });
+
   }
 
   function nextImage() {
-    count++;
-    setTimeout(displayBackground, 4000);
-    if (count === backgroundImg.length) {
-      count = 0;
-    }
+    $(".event-hero-image").fadeIn("slow", function () {
+      count++;
+      setTimeout(displayBackground, 4000);
+      if (count === backgroundImg.length) {
+        count = 0;
+      }
+    });
+
   }
 
   function startSlideShow() {
