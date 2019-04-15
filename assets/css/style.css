@@ -53,8 +53,47 @@ body {
 }
 
 .hero-sub-title,
+.lead,
 input,
-.lead {
+select,
+option {
   font-family: 'PT Sans',
     sans-serif;
+}
+
+.event-hero-image {
+  background: url(../images/events-hero2.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom: black 3px
+}
+
+.event-title,
+.lead {
+  color: #fff;
+  text-shadow: black 2px 2px;
+}
+
+.search-box {
+  /* background-color: linear-gradient(to bottom right, #272A41, #41445C); */
+  background-color: #868e96;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px;
+  border: solid #495057 1px;
+}
+
+.state-style {
+  height: 50px;
+}
+
+
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+}
+
+.jumbotron {
+  margin-bottom: -85px;
 }

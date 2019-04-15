@@ -1,52 +1,111 @@
 $(document).ready(function () {
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCdBtqVdqAJ1OaV0tHQOwswrD39wviIFC0",
-    authDomain: "roam-project-1.firebaseapp.com",
-    databaseURL: "https://roam-project-1.firebaseio.com",
-    projectId: "roam-project-1",
-    storageBucket: "",
-    messagingSenderId: "259803411135"
-  };
-  firebase.initializeApp(config);
-
-  var fireData = firebase.database();
 
   // read query parameters from the url
   var urlParams = new URLSearchParams(window.location.search);
 
   var paramObj = {
-    place: urlParams.get("place"),
-    date: urlParams.get("date")
-  }
+    city: urlParams.get("city"),
+    date: urlParams.get("date"),
+    state: urlParams.get("state")
+  };
   console.log(paramObj);
 
+  ticketMasterDate = moment(paramObj.date, "YYYY-MM-DD").format("YYYY-MM-DDTHH:mm:ssZ")
 
-  fireData.ref().on("child_added", function (childSnapshot) {
-    console.log(childSnapshot.val());
-    console.log("this is child_added");
+  // create a variable for each API url that will be used
+  var ticketMasterUrl = `https://alex-rosencors.herokuapp.com/?url=https://app.ticketmaster.com/discovery/v2/events.json?size=9&apikey=8pz0roVaKoVrDwdaTb4ChFO20fDnHIrg&city=${paramObj.city}&stateCode=${paramObj.state}&startDateTime=${ticketMasterDate}`
 
-    var eventsData = childSnapshot.val();
-    searchCity = eventsData.city;
-    searchState = eventsData.state
-    searchDate = eventsData.date
 
-    // create a variable for each API url that will be used
+  // make an ajax call for each separate API key
 
-    // var weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${.....}&APPID=14e14c44973465093bbd1db899dbec19`
-    var ticketMasterUrl = `https://app.ticketmaster.com/discovery/v2/events.json?size=1&city=${searchCity}&stateCode=${searchState}&startDateTime=${searchDate}`
+  $.ajax({
+      url: ticketMasterUrl,
+      method: "GET"
+    })
+    .then(function (ticketMasterResponse) {
 
-    // make an ajax call for each separate API key
+      var tmResults = ticketMasterResponse._embedded.events
+      console.log(tmResults);
+      console.log(tmResults.length);
 
-    $.ajax({
-        url: ticketMasterUrl,
-        method: "GET"
-      })
-      .then(function (ticketMasterResponse) {
-        console.log(ticketMasterResponse);
+      tmResults.forEach(function (event) {
+        console.log(event);
+        console.log(event.images[0].url);
+        console.log(event.name);
+        console.log(event._embedded.venues[0].name);
+        console.log(event.dates.start.localTime);
+        console.log(event.dates.start.localDate);
+        var eventDiv = $(`<div class="card-wrapper col-12 col-md-4">`);
 
+
+        var eventImg = $(`<img class="card-img-top" src=${event.images[0].url} />`);
+        var eventDivBody = $(`<div class="card-body">`);
+
+        var eventH5 = $(`<h5 class="card-title">`);
+        eventH5.text(event.name);
+        var eventP = $(`<p class="card-text">`);
+
+        var venueName = event._embedded.venues[0].name
+        var eventDate = event.dates.start.localDate
+        var eventDateFormatted = moment(eventDate, "YYYY-MM-DDTHH:mm:ssZ").format("M-DD-YYYY");
+        var eventTime = event.dates.start.localTime
+        var eventTimeFormatted = moment(eventTime, "HH:mm:ss").format("h:mm a");
+        eventP.append(`${venueName}<br>${eventDateFormatted}<br>${eventTimeFormatted}`);
+        eventDivBody.append(eventH5, eventP);
+        eventDiv.append(eventImg, eventDivBody);
+
+        $("#destination").text(paramObj.city);
+        $("#date").text(eventDateFormatted);
+        $("#event-wrapper").append(eventDiv);
       });
+      $("#searchBtn").on("click", function (event) {
+        event.preventDefault();
 
-  });
+        // read from input tags
 
+        var userInput = {
+          city: $("#city-id").val().trim(),
+          state: $("#state-id").val(),
+          date: $("#date-id").val().trim()
+        };
+
+        var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;
+
+        $.ajax({
+            url: ticketMasterUrl,
+            method: "GET"
+          })
+          .then(function (ticketMasterResponse) {
+
+            var tmResults = ticketMasterResponse._embedded.events
+
+            tmResults.forEach(function (event) {
+
+              var eventDiv = $(`<div class="card-wrapper col-12 col-md-4">`);
+
+              var eventImg = $(`<img class="card-img-top" src=${event.images[0].url}/>`);
+              var eventDivBody = $(`<div class="card-body">`);
+
+              var eventH5 = $(`<h5 class="card-title">`);
+              eventH5.text(event.name);
+              var eventP = $(`<p class="card-text">`);
+
+              var venueName = event._embedded.venues[0].name
+              var eventDate = event.dates.start.localDate
+              var eventDateFormatted = moment(eventDate, "YYYY-MM-DDTHH:mm:ssZ").format("M-DD-YYYY");
+              var eventTime = event.dates.start.localTime
+              var eventTimeFormatted = moment(eventTime, "HH:mm:ss").format("h:mm a");
+              eventP.append(`${venueName}<br>${eventDateFormatted}<br>${eventTimeFormatted}`);
+              eventDivBody.append(eventH5, eventP);
+              eventDiv.append(eventImg, eventDivBody);
+
+              $("#destination").text(paramObj.city);
+              $("#date").text(eventDateFormatted);
+              $("#event-wrapper").append(eventDiv);
+
+              location.href = eventUrl;
+            });
+          });
+      });
+    });
 });
