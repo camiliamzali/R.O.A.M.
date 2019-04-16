@@ -17,12 +17,8 @@
 <body>
   <div class="jumbotron jumbotron-fluid event-hero-image border-dark border-bottom">
     <div class="container">
-<<<<<<< HEAD
-      <h1 class="display-4 event-title text-light pb-5">Events in <span class="text-capitalize" id="destination"></span></h1>
-=======
       <h1 class="display-4 event-title text-light pb-5">Events in <span class="text-capitalize" id="destination"></span>
       </h1>
->>>>>>> b1a2569079a852e96e2f1543697cff3f08c03f18
       <!-- <p class="lead text-light pb-5">For <span id="date"></span></p> -->
     </div>
   </div>
@@ -105,15 +101,39 @@
       </form>
     </div>
     </div>
-    <div class="container mb-5">
-      <div class="card">
-        <div class="card-body">
-          <div class="row mx-2" id="event-wrapper">
 
+    <div class="container mb-5">
+      <div class="row">
+        <!-- begin left column -->
+        <div class="col-12 col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="row mx-2" id="event-wrapper">
+
+              </div>
+            </div>
           </div>
         </div>
+        <!-- end left column -->
+
+        <!-- begin right column -->
+        <div class="col-12 col-md-4">
+          <div class="card">
+            <h5 class="card-title text-center">Click Event for Weather</h5>
+            <div class="card-body">
+                <div class="row mx-2 text-center" id="weather-wrapper"></div>
+
+            </div>
+          </div>
+        </div>
+        <!-- end right column -->
+
       </div>
+
+
+
     </div>
+
     </div>
   </main>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

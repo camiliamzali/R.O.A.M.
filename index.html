@@ -17,17 +17,17 @@
 <body>
   <div class="hero text-center flex-center">
     <div class="hero-message">
-      <h1 class="display-3 hero-title">Welcome to R.O.A.M.</h1>
+      <h1 class="display-3 hero-title">When In R.O.A.M.</h1>
       <h3 class="hero-sub-title">Search for events at your destination!</h3>
     </div>
-    <div class="container mb-5 p-1 mx-auto">
+    <div class="container mb-5 p-1">
       <form class="textbox-form row">
         <div class="input-group">
-          <div class="ml-5 pl-5 row align-items-center">
-            <div class="col-12 col-md-3 px-1 py-4">
+          <div class="ml-5 pl-5 row mx-auto align-items-center">
+            <div class="col-12 col-md-4 px-1 py-4">
               <input type="text" class="form-control py-4" id="city-id" placeholder="City">
             </div>
-            <div class="col-12 col-md-3 px-1 py-4">
+            <div class="col-12 col-md-2 px-1 py-4">
               <select class="custom-select state-style" id="state-id">
                 <option selected placeholder="State">State</option>
                 <option value="AL">Alabama</option>
@@ -83,11 +83,11 @@
                 <option value="WY">Wyoming</option>
               </select>
             </div>
-            <div class="col-12 col-md-3 px-1 py-4">
+            <div class="col-12 col-md-4 px-1 py-4">
               <input type="date" class="form-control py-4" id="date-id" placeholder="Date">
             </div>
-            <div class="col-md-3">
-              <button class="d-flex btn btn-danger ml-2" type="submit" id="searchBtn">
+            <div class="col-md-2 sticky-top">
+              <button class="d-flex btn btn-danger" type="submit" id="searchBtn">
                 <i class="fas fa-search fa-2x p-1"></i>
               </button>
             </div>
@@ -167,8 +167,7 @@
 
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="assets/javascript/app.js"></script>

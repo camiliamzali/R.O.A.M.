@@ -8,14 +8,15 @@ $(document).ready(function () {
     date: urlParams.get("date"),
     state: urlParams.get("state")
   };
+  console.log(paramObj)
 
-  ticketMasterDate = moment(paramObj.date, "YYYY-MM-DD").format("YYYY-MM-DDTHH:mm:ssZ")
+  // Ticketmaster requires a specific date format for their API call
+  ticketMasterDate = moment(paramObj.date, "YYYY-MM-DD").format("YYYY-MM-DDTHH:mm:ssZ");
 
-  // create a variable for each API url that will be used
-  var ticketMasterUrl = `https://alex-rosencors.herokuapp.com/?url=https://app.ticketmaster.com/discovery/v2/events.json?size=9&apikey=8pz0roVaKoVrDwdaTb4ChFO20fDnHIrg&city=${paramObj.city}&stateCode=${paramObj.state}&startDateTime=${ticketMasterDate}`
+  var ticketMasterUrl = `https://alex-rosencors.herokuapp.com/?url=https://app.ticketmaster.com/discovery/v2/events.json?size=3&apikey=8pz0roVaKoVrDwdaTb4ChFO20fDnHIrg&city=${paramObj.city}&stateCode=${paramObj.state}&startDateTime=${ticketMasterDate}`
 
-
-  // make an ajax call for each separate API key
+  // 34298613862c897b961ca0ebebbda16d
+  // var openWeatherUrl = `api.openweathermap.org/data/2.5/forecast?zip=${tmZipcode},us`
 
   $.ajax({
       url: ticketMasterUrl,
@@ -24,16 +25,21 @@ $(document).ready(function () {
     .then(function (ticketMasterResponse) {
       console.log(ticketMasterResponse);
 
-      var tmResults = ticketMasterResponse._embedded.events
+      var tmResults = ticketMasterResponse._embedded.events;
 
-      if (!ticketMasterResponse._embedded) {
+      if (ticketMasterResponse._embedded[0]) {
         $("#event-wrapper").text("No Search Results Found");
         return false;
       }
 
+      // This section is on Events Page load after initial search from main page //
+
       tmResults.forEach(function (event) {
-        console.log(event.url);
-        var eventDiv = $(`<div class="card-wrapper col-12 col-md-4">`);
+
+        var tmZipCode = event._embedded.venues[0].postalCode;
+
+        var eventDiv = $(`<div class="card-wrapper col-12 col-md-4 mb-2">`);
+        eventDiv.attr("data-zip", tmZipCode);
         var ticketButton = $(`<a href=${event.url} target="_blank" class="btn btn-block btn-danger">`).text("Get Tickets");
 
 
@@ -59,10 +65,47 @@ $(document).ready(function () {
 
       });
 
+      // End initial search section //
+      $("#event-wrapper").on("click", ".card-wrapper", function() {
+        var tmZipCode = $(this).attr("data-zip");
+        // 34298613862c897b961ca0ebebbda16d
+        var openWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?zip=${tmZipCode}&APPID=34298613862c897b961ca0ebebbda16d`
+
+        $.ajax({
+          url: openWeatherUrl,
+          method: "GET"
+        })
+        .then(function (openWeatherResponse) {
+          console.log(openWeatherResponse);
+
+          var owResults = openWeatherResponse.list[0];
+          var owTempMax = owResults.main.temp_max;
+          var owTempMin = owResults.main.temp_min;
+          var tempMaxConverted = parseInt(1.8 * (owTempMax - 273) + 32);
+          var tempMinConverted = parseInt(1.8 * (owTempMin - 273) + 32);
+          var weatherCond = owResults.weather[0].description;
+          var weatherIcon = owResults.weather[0].icon;
+
+          var iconPTag = $("<p>").append(weatherIcon);
+          var conditionPTag = $("<p>").append(weatherCond);
+          var lowTemperaturePTag = $("<p>").append(`Low: ${tempMinConverted}°`);
+          var highTemperaturePTag = $("<p>").append(`High: ${tempMaxConverted}°`)
+
+
+          var weatherDivBody = $(`<div class="card-body">`);
+          weatherDivBody.append(iconPTag, conditionPTag, lowTemperaturePTag, highTemperaturePTag);
+
+          $("#weather-wrapper").html(weatherDivBody);
+        })
+      })
+
+
+      // Begin section for the events page specific search bar //
+
       $("#searchBtn").on("click", function (event) {
         event.preventDefault();
 
-        // read from input tags
+        // read from user input tags
 
         var userInput = {
           city: $("#city-id").val().trim(),
@@ -78,13 +121,21 @@ $(document).ready(function () {
           })
           .then(function (ticketMasterResponse) {
 
+            if (ticketMasterResponse._embedded[0]) {
+              $("#event-wrapper").text("No Search Results Found");
+              return false;
+            }
+
             var tmResults = ticketMasterResponse._embedded.events
 
             tmResults.forEach(function (event) {
 
-            
-              var ticketButton = $(`<button class="btn btn-block btn-danger">`).text("Get Tickets")
-              var eventDiv = $(`<div class="card-wrapper mb-5 pt-3 px-3 col-12 col-md-4">`);
+              var tmZipCode = event._embedded.venues[0].postalCode;
+
+              var eventDiv = $(`<div class="card-wrapper col-12 col-md-4 mb-2">`);
+              eventDiv.attr(`${tmZipCode}`);
+
+              var ticketButton = $(`<a class="btn btn-block btn-danger">`).text("Get Tickets");              
 
               var eventImg = $(`<img class="card-img-top" src=${event.images[0].url}/>`);
               var eventDivBody = $(`<div class="card-body">`);
@@ -113,7 +164,7 @@ $(document).ready(function () {
       });
     });
   //slideshow jumbotron
-  var backgroundImg = ["assets/images/events-hero2.jpg", "assets/images/events-hero3.jpg", "assets/images/events-hero4.jpg, assets/images/events-hero4.jpg"];
+  var backgroundImg = ["assets/images/events-hero2.jpg", "assets/images/events-hero3.jpg", "assets/images/events-hero4.jpg, assets/images/events-hero5.jpg, assets/images/events-hero6.jpg"];
   var showImage;
   var count = 0;
 
