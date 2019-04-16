@@ -48,6 +48,11 @@ body {
 
 }
 
+.title-font {
+  font-family: 'Heebo',
+    sans-serif;
+}
+
 .hero-title,
 .event-title {
   font-family: 'Heebo',
@@ -63,8 +68,13 @@ option {
     sans-serif;
 }
 
+.normal-font {
+  font-family: 'PT Sans',
+    sans-serif;
+}
+
 .event-hero-image {
-  background: url(../images/events-hero2.jpg);
+  background: url(../images/events-hero1.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -79,10 +89,10 @@ option {
 
 .search-box {
   /* background-color: linear-gradient(to bottom right, #272A41, #41445C); */
-  background-color: #868e96;
+  background-color: #434342;
   border-radius: 15px;
   box-shadow: 0 10px 30px;
-  border: solid #495057 1px;
+  border: solid black 1px;
 }
 
 .state-style {
@@ -99,7 +109,8 @@ option {
 }
 
 .card-wrapper:hover {
-  box-shadow: 0px 5px 10px;
+
+  box-shadow: 4px 10px 10px 0px #adb5bd;
 }
 
 .jumbotron {

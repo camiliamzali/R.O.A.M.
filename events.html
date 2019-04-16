@@ -101,15 +101,37 @@
       </form>
     </div>
     </div>
-    <div class="container mb-5">
-      <div class="card">
-        <div class="card-body">
-          <div class="row mx-2" id="event-wrapper">
+
+    <div class="container-fluid mb-5">
+      <div class="row">
+        <!-- begin left column -->
+        <div class="col-12 col-md-8">
+
+          <div class="row mx-2 align-items-stretch" id="event-wrapper">
 
           </div>
+
         </div>
+        <!-- end left column -->
+
+        <!-- begin right column -->
+        <div class="col-12 col-md-4 pt-4">
+          <div class="card sticky-top">
+            <h5 class="card-title title-font text-center pt-4">Click Event for Weather</h5>
+            <div class="card-body">
+              <div class="row mx-2 text-center" id="weather-wrapper"></div>
+
+            </div>
+          </div>
+        </div>
+        <!-- end right column -->
+
       </div>
+
+
+
     </div>
+
     </div>
   </main>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
