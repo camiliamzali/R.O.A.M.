@@ -172,32 +172,37 @@ $(document).ready(function () {
   var count = 0;
 
   //slideshow function
-  function displayBackground() {
-    $(".event-hero-image").css({
-      "background": "url(" + backgroundImg[count] + ")",
-      "background-position": "center",
-      "background-size": "cover",
-      "background-repeat": "no-repeat",
-      "border-bottom": "black 3px",
-      "animation-duration": "2s"
-    });
+  //   function displayBackground() {
+  //     $(".event-hero-image").css({
+  //       "background": "url(" + backgroundImg[count] + ")",
+  //       "background-position": "center",
+  //       "background-size": "cover",
+  //       "background-repeat": "no-repeat",
+  //       "border-bottom": "black 3px",
+  //     });
 
-  }
+  //   }
 
-  function nextImage() {
-    $(".event-hero-image").fadeIn("slow", function () {
-      count++;
-      setTimeout(displayBackground, 4000);
-      if (count === backgroundImg.length) {
-        count = 0;
-      }
-    });
+  //   function nextImage() {
+  //     $(".event-hero-image").fadeIn("slow", function () {
+  //       count++;
+  //       setTimeout(displayBackground, 4000);
+  //       if (count === backgroundImg.length) {
+  //         count = 0;
+  //       }
+  //     });
 
-  }
+  //   }
 
-  function startSlideShow() {
-    showImage = setInterval(nextImage, 4000);
-  }
+  //   function startSlideShow() {
+  //     showImage = setInterval(nextImage, 4000);
+  //   }
 
-  startSlideShow();
+  //   startSlideShow();
+  $('.event-hero-image').slick({
+    infinite: true,
+    speed: 500,
+    fade: true,
+    cssEase: 'linear'
+  });
 });
