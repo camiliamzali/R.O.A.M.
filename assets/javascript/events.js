@@ -83,13 +83,15 @@ $(document).ready(function () {
             .then(function (openWeatherResponse) {
               console.log(openWeatherResponse);
 
-              var owResults = openWeatherResponse.list[0];
-              var owTempMax = owResults.main.temp_max;
-              var owTempMin = owResults.main.temp_min;
+              var owResults = openWeatherResponse.list;
+
+              owResults.forEach(function (result) {
+
+              var owTempMax = result.main.temp_max;
+              var owTempMin = result.main.temp_min;
               var tempMaxConverted = parseInt(1.8 * (owTempMax - 273) + 32);
               var tempMinConverted = parseInt(1.8 * (owTempMin - 273) + 32);
-              var weatherCond = owResults.weather[0].main;
-              console.log(weatherCond);
+              var weatherCond = result.weather[0].main;
 
               var weatherEventName = $("<p>").append(tmEventName);
               var conditionPTag = $("<p>").append(weatherCond);
@@ -113,8 +115,11 @@ $(document).ready(function () {
               weatherDivBody.append(conditionPTag, temperaturePTag);
 
               $("#weather-wrapper").html(weatherDivBody);
+            
             })
+          
         })
+      })
 
 
         // Begin section for the events page specific search bar //
