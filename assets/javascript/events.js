@@ -12,6 +12,11 @@ $(document).ready(function () {
   };
   console.log(paramObj)
 
+  var today = moment().format("MM-DD-YYYY");
+  console.log(today);
+
+  $("#date-id").attr(`min ="${today}`);
+
 
   // Ticketmaster requires a specific date format for their API call
   var ticketMasterDate = moment(paramObj.date, "YYYY-MM-DD").format("YYYY-MM-DDTHH:mm:ssZ");
@@ -45,13 +50,13 @@ $(document).ready(function () {
         var tmZipCode = event._embedded.venues[0].postalCode;
         var tmEventName = event.name;
 
-        var eventDiv = $(`<div class="card-wrapper col-12 col-md-4 mb-2">`);
+        var eventDiv = $(`<div class="card-wrapper d-flex flex-column col-12 col-md-4 mb-2">`);
         eventDiv.attr("data-zip", tmZipCode);
         eventDiv.attr("event-name", tmEventName);
         var ticketButton = $(`<a href=${event.url} target="_blank" class="btn btn-block btn-danger">`).text("Get Tickets");
 
         var eventImg = $(`<img class="card-img-top" src=${event.images[1].url} />`);
-        var eventDivBody = $(`<div class="card-body">`);
+        var eventDivBody = $(`<div class="card-body d-flex flex-column">`);
 
         var eventH5 = $(`<h5 class="card-title title-font">`);
         eventH5.text(event.name);
@@ -90,6 +95,7 @@ $(document).ready(function () {
             var owResults = openWeatherResponse.list;
 
             owResults.forEach(function (result) {
+              $(".weather-header").text("")
 
               var owTempMax = result.main.temp_max;
               var owTempMin = result.main.temp_min;
@@ -101,20 +107,19 @@ $(document).ready(function () {
               var conditionPTag = $(`<p class="normal-font text-muted">`).append(weatherCond);
               var temperaturePTag = $(`<p class="normal-font text-muted">`).append(`Low: ${tempMinConverted}° - High: ${tempMaxConverted}°`);
 
-
               var weatherDivBody = $(`<div class="card-body">`);
 
               weatherDivBody.append(weatherEventName);
               if (weatherCond === "Rain") {
                 weatherDivBody.append($("<img src='assets/images/rain.png' alt='rain' class='img-fluid' />"));
               } else if (weatherCond === "Snow") {
-                weatherDivBody.append($("<img src='assets/images/snow.png' alt='rain' class='img-fluid' />"));
+                weatherDivBody.append($("<img src='assets/images/snow.png' alt='snow' class='img-fluid' />"));
               } else if (weatherCond === "Clouds") {
-                weatherDivBody.append($("<img src='assets/images/cloudy.png' alt='rain' class='img-fluid' />"));
+                weatherDivBody.append($("<img src='assets/images/cloudy.png' alt='clouds' class='img-fluid' />"));
               } else if (weatherCond === "Clear") {
-                weatherDivBody.append($("<img src='assets/images/clear-sky.png' alt='rain' class='img-fluid' />"));
+                weatherDivBody.append($("<img src='assets/images/clear-sky.png' alt='clear' class='img-fluid' />"));
               } else if (weatherCond === "Wind") {
-                weatherDivBody.append($("<img src='assets/images/windy.png' alt='rain' class='img-fluid' />"));
+                weatherDivBody.append($("<img src='assets/images/windy.png' alt='wind' class='img-fluid' />"));
               };
               weatherDivBody.append(conditionPTag, temperaturePTag);
 
@@ -124,7 +129,6 @@ $(document).ready(function () {
 
           })
       })
-
 
       // Begin section for the events page specific search bar //
 
@@ -139,7 +143,7 @@ $(document).ready(function () {
           date: $("#date-id").val().trim()
         };
 
-        if(!userInput.city || !userInput.state || !userInput.date) {
+        if (!userInput.city || !userInput.state || !userInput.date) {
           return false;
         }
 
@@ -164,12 +168,12 @@ $(document).ready(function () {
 
                 var tmZipCode = event._embedded.venues[0].postalCode;
 
-                var eventDiv = $(`<div class="card-wrapper col-12 col-md-4 mb-2">`);
+                var eventDiv = $(`<div class="card-wrapper d-flex flex-column col-12 col-md-4 mb-2">`);
                 eventDiv.attr(`${tmZipCode}`);
 
 
                 var eventImg = $(`<img class="card-img-top" src=${event.images[1].url}/>`);
-                var eventDivBody = $(`<div class="card-body">`);
+                var eventDivBody = $(`<div class="card-body d-flex flex-column">`);
 
                 var eventH5 = $(`<h5 class="card-title title-font">`);
                 eventH5.text(event.name);
