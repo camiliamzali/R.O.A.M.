@@ -127,7 +127,7 @@ option {
 
 
 .card {
-  box-shadow: 0px 5px 15px;
+  box-shadow: 4px 10px 10px 0px #adb5bd;
   background-color: #f8f9fa;
 }
 
