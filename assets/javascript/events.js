@@ -17,7 +17,7 @@ $(document).ready(function () {
   // Ticketmaster requires a specific date format for their API call
   ticketMasterDate = moment(paramObj.date, "YYYY-MM-DD").format("YYYY-MM-DDTHH:mm:ssZ");
   var ticketMasterEndDate = moment(paramObj.date, "YYYY-MM-DD").add(23, "h").format("YYYY-MM-DDTHH:mm:ssZ")
-  var ticketMasterUrl = `https://alex-rosencors.herokuapp.com/?url=https://app.ticketmaster.com/discovery/v2/events.json?size=6&apikey=8pz0roVaKoVrDwdaTb4ChFO20fDnHIrg&city=${paramObj.city}&stateCode=${paramObj.state}&startDateTime=${ticketMasterDate}&endDateTime=${ticketMasterEndDate}`
+  var ticketMasterUrl = `https://alex-rosencors.herokuapp.com/?url=https://app.ticketmaster.com/discovery/v2/events.json?size=12&apikey=8pz0roVaKoVrDwdaTb4ChFO20fDnHIrg&city=${paramObj.city}&stateCode=${paramObj.state}&startDateTime=${ticketMasterDate}&endDateTime=${ticketMasterEndDate}`
   console.log(ticketMasterUrl)
   // 34298613862c897b961ca0ebebbda16d
   // var openWeatherUrl = `api.openweathermap.org/data/2.5/forecast?zip=${tmZipcode},us`

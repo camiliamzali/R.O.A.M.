@@ -106,7 +106,15 @@ option {
   object-fit: cover;
   border: solid black 1px;
 
+
 }
+
+@media only screen and (max-width: 768px) {
+  .card-img-top {
+    height: 50vw
+  }
+}
+
 
 .card-wrapper:hover {
 
