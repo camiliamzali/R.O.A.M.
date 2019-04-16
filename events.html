@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <div class="jumbotron jumbotron-fluid event-hero-image border-dark border-bottom">
+  <div class="jumbotron jumbotron-fluid pt-5 event-hero-image border-dark border-bottom">
     <div class="container">
       <h1 class="display-4 event-title text-light pb-5">Events in <span class="text-capitalize" id="destination"></span>
       </h1>
@@ -27,11 +27,11 @@
       <form class="textbox-form row">
         <div class="input-group">
           <div class="row align-items-center">
-            <div class="col-12 col-md-3 px-1 py-4">
+            <div class="col-12 col-md-4 px-1 py-4">
               <h6 class="text-light">City</h6>
               <input type="text" class="form-control py-4" id="city-id" placeholder="City">
             </div>
-            <div class="col-12 col-md-3 px-1 py-4">
+            <div class="col-12 col-md-2 px-1 py-4">
               <h6 class="text-light">State</h6>
               <select class="custom-select state-style" id="state-id">
                 <option selected placeholder="State">State</option>
@@ -88,7 +88,7 @@
                 <option value="WY">Wyoming</option>
               </select>
             </div>
-            <div class="col-12 col-md-3 px-1 py-4">
+            <div class="col-12 col-md-4 px-1 py-4">
               <h6 class="text-light">Date Desired</h6>
               <input type="date" class="form-control py-4" id="date-id" placeholder="MM/DD/YYYY">
             </div>
@@ -102,24 +102,23 @@
     </div>
     </div>
 
-    <div class="container mb-5">
+    <div class="container-fluid mb-5">
       <div class="row">
         <!-- begin left column -->
         <div class="col-12 col-md-8">
-          <div class="card">
-            <div class="card-body">
-              <div class="row mx-2" id="event-wrapper">
 
-              </div>
-            </div>
+          <div class="row mx-2 align-items-stretch" id="event-wrapper">
+
           </div>
+
         </div>
         <!-- end left column -->
 
         <!-- begin right column -->
-        <div class="col-12 col-md-4">
-          <div class="card mb-5">
-            <h5 class="card-title text-center">Click Event for Weather</h5>
+        <div class="col-12 col-md-4 pt-4">
+          <div class="card sticky-top">
+            <h5 class="card-title title-font text-center pt-4">Click Event for Weather</h5>
+
             <div class="card-body">
               <div class="row mx-2 text-center" id="weather-wrapper"></div>
 
@@ -146,6 +145,12 @@
 
     </div>
   </main>
+
+  <footer class="row text-center bg-dark py-2 sticky-bottom">
+    <div class="col-12">
+      <a href="index.html" class="text-light roam-title p-0">R.O.A.M. HOME</a>
+    </div>
+  </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>

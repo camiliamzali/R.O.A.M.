@@ -3,12 +3,15 @@ $(document).ready(function () {
   // read query parameters from the url
   var urlParams = new URLSearchParams(window.location.search);
 
+
+
   var paramObj = {
     city: urlParams.get("city"),
     date: urlParams.get("date"),
     state: urlParams.get("state")
   };
   console.log(paramObj)
+
 
   // Ticketmaster requires a specific date format for their API call
   var ticketMasterDate = moment(paramObj.date, "YYYY-MM-DD").format("YYYY-MM-DDTHH:mm:ssZ");
@@ -17,12 +20,12 @@ $(document).ready(function () {
   var ticketMasterUrl = `https://alex-rosencors.herokuapp.com/?url=https://app.ticketmaster.com/discovery/v2/events.json?size=12&apikey=8pz0roVaKoVrDwdaTb4ChFO20fDnHIrg&city=${paramObj.city}&stateCode=${paramObj.state}&startDateTime=${ticketMasterDate}&endDateTime=${ticketMasterEndDate}`
   console.log(ticketMasterUrl);
 
+
   $.ajax({
       url: ticketMasterUrl,
       method: "GET"
     })
     .then(function (ticketMasterResponse) {
-      console.log(ticketMasterResponse);
 
       var responseKeys = Object.keys(ticketMasterResponse);
       if (!responseKeys.includes("_embedded")) {
@@ -37,6 +40,7 @@ $(document).ready(function () {
 
         tmResults.forEach(function (event) {
 
+
           var tmZipCode = event._embedded.venues[0].postalCode;
           var tmEventName = event.name;
 
@@ -44,7 +48,6 @@ $(document).ready(function () {
           eventDiv.attr("data-zip", tmZipCode);
           eventDiv.attr("event-name", tmEventName);
           var ticketButton = $(`<a href=${event.url} target="_blank" class="btn btn-block btn-danger">`).text("Get Tickets");
-
 
           var eventImg = $(`<img class="card-img-top" src=${event.images[1].url} />`);
           var eventDivBody = $(`<div class="card-body">`);
@@ -189,7 +192,7 @@ $(document).ready(function () {
       
     });
   //slideshow jumbotron
-  var backgroundImg = ["assets/images/events-hero2.jpg", "assets/images/events-hero3.jpg", "assets/images/events-hero4.jpg, assets/images/events-hero5.jpg, assets/images/events-hero6.jpg"];
+  var backgroundImg = ["assets/images/events-hero1.jpg", "assets/images/events-hero7.jpg", "assets/images/events-hero8.jpg"];
   var showImage;
   var count = 0;
 
