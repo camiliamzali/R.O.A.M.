@@ -28,6 +28,7 @@ $(document).ready(function () {
     .then(function (ticketMasterResponse) {
 
       var responseKeys = Object.keys(ticketMasterResponse);
+
       if (!responseKeys.includes("_embedded")) {
         console.log("Nothing found");
         $("#event-wrapper").text("No Search Results Found. Please check your city/state again.");
@@ -137,6 +138,10 @@ $(document).ready(function () {
           state: $("#state-id").val(),
           date: $("#date-id").val().trim()
         };
+
+        if(!userInput.city || !userInput.state || !userInput.date) {
+          return false;
+        }
 
         var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;
 
