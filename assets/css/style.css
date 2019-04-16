@@ -130,3 +130,7 @@ option {
   box-shadow: 0px 5px 15px;
   background-color: #f8f9fa;
 }
+
+.roam-title {
+  width: 100px;
+}
