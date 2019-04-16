@@ -33,8 +33,8 @@ $(document).ready(function () {
 
       tmResults.forEach(function (event) {
         console.log(event.url);
-        var eventDiv = $(`<div class="card-wrapper col-12 col-md-4">`);
-        var ticketButton = $(`<a href=${event.url} target="_blank" class="btn btn-block btn-danger">`).text("Get Tickets");
+        var eventDiv = $(`<div class="card-wrapper mb-5 pt-3 px-3 col-12 col-md-4">`);
+        var ticketButton = $(`<a href=${event.url} target="_blank" class="btn btn-block btn-danger align-self-end">`).text("Get Tickets");
 
 
         var eventImg = $(`<img class="card-img-top" src=${event.images[0].url} />`);
@@ -50,8 +50,8 @@ $(document).ready(function () {
         var eventTime = event.dates.start.localTime
         var eventTimeFormatted = moment(eventTime, "HH:mm:ss").format("h:mm a");
         eventP.append(`${venueName}<br>${eventDateFormatted}<br>${eventTimeFormatted}`);
-        eventDivBody.append(eventH5, eventP, ticketButton);
-        eventDiv.append(eventImg, eventDivBody);
+        eventDivBody.append(eventH5, eventP);
+        eventDiv.append(eventImg, eventDivBody, ticketButton);
 
         $("#destination").text(paramObj.city);
         // $("#date").text(eventDateFormatted);
@@ -82,7 +82,7 @@ $(document).ready(function () {
 
             tmResults.forEach(function (event) {
 
-            
+
               var ticketButton = $(`<button class="btn btn-block btn-danger">`).text("Get Tickets")
               var eventDiv = $(`<div class="card-wrapper mb-5 pt-3 px-3 col-12 col-md-4">`);
 
@@ -92,15 +92,15 @@ $(document).ready(function () {
               var eventH5 = $(`<h5 class="card-title">`);
               eventH5.text(event.name);
               var eventP = $(`<p class="card-text">`);
-              var ticketButton = $(`<button class="btn btn-block btn-danger">`).text("Get Tickets!");
+              var ticketButton = $(`<a class="btn btn-block btn-danger align-self-end">`).text("Get Tickets!");
               var venueName = event._embedded.venues[0].name
               var eventDate = event.dates.start.localDate
               var eventDateFormatted = moment(eventDate, "YYYY-MM-DDTHH:mm:ssZ").format("M-DD-YYYY");
               var eventTime = event.dates.start.localTime
               var eventTimeFormatted = moment(eventTime, "HH:mm:ss").format("h:mm a");
               eventP.append(`${venueName}<br>${eventDateFormatted}<br>${eventTimeFormatted}`);
-              eventDivBody.append(eventH5, eventP, ticketButton);
-              eventDiv.append(eventImg, eventDivBody);
+              eventDivBody.append(eventH5, eventP);
+              eventDiv.append(eventImg, eventDivBody, ticketButton);
 
               $("#destination").text(paramObj.city);
               $("#date").text(eventDateFormatted);
