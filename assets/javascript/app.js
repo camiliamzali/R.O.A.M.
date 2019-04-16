@@ -20,6 +20,10 @@ $(document).ready(function () {
       date: $("#date-id").val().trim()
     };
 
+    if(!userInput.city || !userInput.state || !userInput.date) {
+      return false;
+    }
+
     var eventUrl = "events.html?city=" + userInput.city + "&state=" + userInput.state + "&date=" + userInput.date;
 
     location.href = eventUrl;
