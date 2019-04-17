@@ -73,13 +73,13 @@ option {
     sans-serif;
 }
 
-/* .event-hero-image {
+.event-hero-image {
   background: url(../images/events-hero1.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   border-bottom: black 3px;
-} */
+}
 
 .event-title,
 .lead {
@@ -93,6 +93,7 @@ option {
   border-radius: 15px;
   box-shadow: 0 10px 30px;
   border: solid black 1px;
+  z-index: 99999;
 }
 
 .state-style {
@@ -133,4 +134,3 @@ option {
 .roam-title {
   width: 100px;
 }
-
