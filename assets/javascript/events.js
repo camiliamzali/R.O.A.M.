@@ -11,9 +11,10 @@ $(document).ready(() => {
   console.log(paramObj)
 
   var today = moment().format("MM-DD-YYYY");
-  console.log(today);
+  var maxDate = moment(today, "MM-DD-YYYY").add(108, "h").format("MM-DD-YYYY");
 
   $("#date-id").attr(`min ="${today}`);
+  $("#date-id").attr(`max ="${maxDate}`);
 
 
   // Ticketmaster requires a specific date format for their API call
@@ -28,6 +29,7 @@ $(document).ready(() => {
       method: "GET"
     })
     .then(function (ticketMasterResponse) {
+      console.log(ticketMasterResponse);
 
       var responseKeys = Object.keys(ticketMasterResponse);
 
@@ -43,6 +45,10 @@ $(document).ready(() => {
 
       tmResults.forEach(function (event) {
 
+        var tmStartTime = event.dates.start.localTime;
+        var tmDate = event.dates.start.localDate
+        var tmDateAndTime = `${tmDate} ${tmStartTime}`
+
 
         var tmZipCode = event._embedded.venues[0].postalCode;
         var tmEventName = event.name;
@@ -52,7 +58,9 @@ $(document).ready(() => {
 
         eventDiv.attr("data-zip", tmZipCode);
         eventDiv.attr("event-name", tmEventName);
-        var ticketButton = $(`<a href=${event.url} target="_blank" class="btn btn-block btn-danger mt-auto">`).text("Get Tickets");
+        eventDiv.attr("event-DateAndTime", tmDateAndTime);
+
+        var ticketButton = $(`<a href=${event.url} target="_blank" class="btn btn-block btn-danger">`).text("Get Tickets");
 
         var eventImg = $(`<img class="card-img-top" src=${event.images[1].url} />`);
         var eventDivBody = $(`<div class="card-body d-flex flex-column">`);
@@ -79,9 +87,11 @@ $(document).ready(() => {
 
 
       $("#event-wrapper").on("click", ".card-wrapper", function () {
+
         var tmZipCode = $(this).attr("data-zip");
         var tmEventName = $(this).attr("event-name");
-        // 34298613862c897b961ca0ebebbda16d
+        var tmDateAndTime = $(this).attr("event-DateAndTime");
+
         var openWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?zip=${tmZipCode}&APPID=34298613862c897b961ca0ebebbda16d`
 
         $.ajax({
@@ -102,27 +112,32 @@ $(document).ready(() => {
               var tempMinConverted = parseInt(1.8 * (owTempMin - 273) + 32);
               var weatherCond = result.weather[0].main;
 
-              var weatherEventName = $(`<h3 class="title-font">`).append(tmEventName);
-              var conditionPTag = $(`<p class="normal-font text-muted">`).append(weatherCond);
-              var temperaturePTag = $(`<p class="normal-font text-muted">`).append(`Low: ${tempMinConverted}° - High: ${tempMaxConverted}°`);
+              var weatherEventName = $(`<p class="normal-font text-muted">`).append(tmEventName);
 
-              var weatherDivBody = $(`<div class="card-body">`);
+              if (tmDateAndTime < result.dt_txt) {
+                console.log(`event time: ${tmDateAndTime} and weather time: ${result.dt_txt}`);
 
-              weatherDivBody.append(weatherEventName);
-              if (weatherCond === "Rain") {
-                weatherDivBody.append($("<img src='assets/images/rain.png' alt='rain' class='img-fluid' />"));
-              } else if (weatherCond === "Snow") {
-                weatherDivBody.append($("<img src='assets/images/snow.png' alt='snow' class='img-fluid' />"));
-              } else if (weatherCond === "Clouds") {
-                weatherDivBody.append($("<img src='assets/images/cloudy.png' alt='clouds' class='img-fluid' />"));
-              } else if (weatherCond === "Clear") {
-                weatherDivBody.append($("<img src='assets/images/clear-sky.png' alt='clear' class='img-fluid' />"));
-              } else if (weatherCond === "Wind") {
-                weatherDivBody.append($("<img src='assets/images/windy.png' alt='wind' class='img-fluid' />"));
-              };
-              weatherDivBody.append(conditionPTag, temperaturePTag);
+                var conditionPTag = $(`<p class="normal-font text-muted">`).append(weatherCond);
+                var temperaturePTag = $(`<p class="normal-font text-muted">`).append(`Low: ${tempMinConverted}° - High: ${tempMaxConverted}°`);
 
-              $("#weather-wrapper").html(weatherDivBody);
+                var weatherDivBody = $(`<div class="card-body">`);
+
+                weatherDivBody.append(weatherEventName);
+                if (weatherCond === "Rain") {
+                  weatherDivBody.append($("<img src='assets/images/rain.png' alt='rain' class='img-fluid' />"));
+                } else if (weatherCond === "Snow") {
+                  weatherDivBody.append($("<img src='assets/images/snow.png' alt='snow' class='img-fluid' />"));
+                } else if (weatherCond === "Clouds") {
+                  weatherDivBody.append($("<img src='assets/images/cloudy.png' alt='clouds' class='img-fluid' />"));
+                } else if (weatherCond === "Clear") {
+                  weatherDivBody.append($("<img src='assets/images/clear-sky.png' alt='clear' class='img-fluid' />"));
+                } else if (weatherCond === "Wind") {
+                  weatherDivBody.append($("<img src='assets/images/windy.png' alt='wind' class='img-fluid' />"));
+                };
+                weatherDivBody.append(conditionPTag, temperaturePTag);
+
+                $("#weather-wrapper").html(weatherDivBody);
+              }
 
             })
 
@@ -142,7 +157,14 @@ $(document).ready(() => {
           date: $("#date-id").val().trim()
         };
 
+        var userInputUnix = parseInt(moment(userInput.date, "YYYY-MM-DD").format("X"));
+        var maxDateUnix = parseInt(moment(maxDate, "MM-DD-YYYY").format("X"));
+
         if (!userInput.city || !userInput.state || !userInput.date) {
+          return false;
+        } else if (userInputUnix > maxDateUnix) {
+          console.log("greater")
+          $("#date-rejection").text("* ROAM is all about being spontaneous. Try searching again within the next 4 days.");
           return false;
         }
 
