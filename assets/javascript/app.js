@@ -10,9 +10,10 @@ $(document).ready(function () {
   }
 
   var today = moment().format("MM-DD-YYYY");
-  console.log(today);
+  var maxDate = moment(today, "MM-DD-YYYY").add(108, "h").format("MM-DD-YYYY");
 
   $("#date-id").attr(`min ="${today}`);
+  $("#date-id").attr(`max ="${maxDate}`);
 
   $("#searchBtn").on("click", function (event) {
     event.preventDefault();
@@ -25,7 +26,15 @@ $(document).ready(function () {
       date: $("#date-id").val().trim()
     };
 
-    if(!userInput.city || !userInput.state || !userInput.date) {
+    var userInputUnix = parseInt(moment(userInput.date, "YYYY-MM-DD").format("X"));
+    var maxDateUnix = parseInt(moment(maxDate, "MM-DD-YYYY").format("X"));
+
+    if (!userInput.city || !userInput.state || !userInput.date) {
+      return false;
+    } 
+    else if (userInputUnix > maxDateUnix) {
+      console.log("greater")
+      $("#date-rejection").text("* ROAM is all about being spontaneous. Try searching again within the next 4 days.");
       return false;
     }
 
