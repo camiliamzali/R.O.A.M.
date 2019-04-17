@@ -73,13 +73,13 @@ option {
     sans-serif;
 }
 
-.event-hero-image {
+/* .event-hero-image {
   background: url(../images/events-hero1.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   border-bottom: black 3px;
-}
+} */
 
 .event-title,
 .lead {
@@ -117,7 +117,6 @@ option {
 
 
 .card-wrapper:hover {
-
   box-shadow: 4px 1px 10px 0px #adb5bd;
 }
 
@@ -134,3 +133,4 @@ option {
 .roam-title {
   width: 100px;
 }
+
