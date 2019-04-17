@@ -9,6 +9,11 @@ $(document).ready(function () {
     date: urlParams.get("date")
   }
 
+  var today = moment().format("MM-DD-YYYY");
+  console.log(today);
+
+  $("#date-id").attr(`min ="${today}`);
+
   $("#searchBtn").on("click", function (event) {
     event.preventDefault();
 
