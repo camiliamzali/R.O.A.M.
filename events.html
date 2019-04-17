@@ -15,8 +15,8 @@
 </head>
 
 <body>
-  <div class="jumbotron jumbotron-fluid pt-5 event-hero-image border-dark border-bottom">
-    <div class="container">
+  <div class="jumbotron jumbotron-fluid backstretch border-bottom">
+    <div class="container hero-text">
       <h1 class="display-4 event-title text-light pb-5">Events in <span class="text-capitalize" id="destination"></span>
       </h1>
       <!-- <p class="lead text-light pb-5">For <span id="date"></span></p> -->
@@ -28,11 +28,11 @@
         <div class="input-group">
           <div class="row align-items-center">
             <div class="col-12 col-md-4 px-1 py-4">
-              <h6 class="text-light">City</h6>
+              <h6 class="text-light"></h6>
               <input type="text" class="form-control py-4" id="city-id" placeholder="City">
             </div>
             <div class="col-12 col-md-2 px-1 py-4">
-              <h6 class="text-light">State</h6>
+              <h6 class="text-light"></h6>
               <select class="custom-select state-style" id="state-id">
                 <option selected placeholder="State">State</option>
                 <option value="AL">Alabama</option>
@@ -89,7 +89,7 @@
               </select>
             </div>
             <div class="col-12 col-md-4 px-1 py-4">
-              <h6 class="text-light">Date Desired</h6>
+              <h6 class="text-light"></h6>
               <input type="date" class="form-control py-4" id="date-id" placeholder="MM/DD/YYYY">
             </div>
             <div class="col-md-2 mt-4 mx-auto p-0">
@@ -100,7 +100,7 @@
           </div>
       </form>
     </div>
-    </div>
+
 
     <div class="container-fluid mb-5">
       <div class="row">
@@ -139,11 +139,9 @@
 
       </div>
 
-
-
     </div>
 
-    </div>
+
   </main>
 
   <footer class="row text-center bg-dark py-2 sticky-bottom">
@@ -155,10 +153,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="assets/javascript/backstretch.min.js"></script>
   <script src="assets/javascript/events.js"></script>
   <script src="assets/javascript/app.js"></script>
-
-
 </body>
 
 </html>
