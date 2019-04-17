@@ -1,7 +1,9 @@
-$(document).ready(() => {
+$(document).ready(function () {
 
   // read query parameters from the url
   var urlParams = new URLSearchParams(window.location.search);
+
+
 
   var paramObj = {
     city: urlParams.get("city"),
@@ -23,6 +25,7 @@ $(document).ready(() => {
 
   var ticketMasterUrl = `https://alex-rosencors.herokuapp.com/?url=https://app.ticketmaster.com/discovery/v2/events.json?size=12&apikey=8pz0roVaKoVrDwdaTb4ChFO20fDnHIrg&city=${paramObj.city}&stateCode=${paramObj.state}&startDateTime=${ticketMasterDate}&endDateTime=${ticketMasterEndDate}`
   console.log(ticketMasterUrl);
+
 
   $.ajax({
       url: ticketMasterUrl,
@@ -213,24 +216,46 @@ $(document).ready(() => {
                 $("#destination").text(paramObj.city);
                 $("#date").text(eventDateFormatted);
                 $("#event-wrapper").append(eventDiv);
+
+
               });
             }
           });
       });
+
+    });
+  //slideshow jumbotron
+  var backgroundImg = ["assets/images/events-hero1.jpg", "assets/images/events-hero7.jpg", "assets/images/events-hero8.jpg"];
+  var showImage;
+  var count = 0;
+
+  // slideshow function
+  function displayBackground() {
+    $(".event-hero-image").css({
+      "background": "url(" + backgroundImg[count] + ")",
+      "background-position": "center",
+      "background-size": "cover",
+      "background-repeat": "no-repeat",
+      "border-bottom": "black 3px",
     });
 
-  //slideshow jumbotron
-  $(".backstretch").backstretch([
-    "assets/images/events-hero.jpg",
-    "assets/images/events-hero2.jpg",
-    "assets/images/events-hero3.jpg",
-    "assets/images/events-hero4.jpg",
-    "assets/images/events-hero5.jpg",
-    "assets/images/events-hero6.jpg"
-  ], {
-    duration: 4000,
-    transition: 'fade',
-    fade: 500
-  });
+  }
+
+  function nextImage() {
+    $(".event-hero-image").fadeIn("slow", function () {
+      count++;
+      setTimeout(displayBackground, 4000);
+      if (count === backgroundImg.length) {
+        count = 0;
+      }
+    });
+
+  }
+
+  function startSlideShow() {
+    showImage = setInterval(nextImage, 4000);
+  }
+
+  startSlideShow();
 
 });
