@@ -50,10 +50,12 @@ $(document).ready(function () {
         var tmZipCode = event._embedded.venues[0].postalCode;
         var tmEventName = event.name;
 
-        var eventDiv = $(`<div class="card-wrapper d-flex flex-column col-12 col-md-4 mb-2">`);
+
+        var eventDiv = $(`<div class="card-wrapper d-flex flex-column col-12 col-md-4 mb-2 pt-3">`);
+
         eventDiv.attr("data-zip", tmZipCode);
         eventDiv.attr("event-name", tmEventName);
-        var ticketButton = $(`<a href=${event.url} target="_blank" class="btn btn-block btn-danger">`).text("Get Tickets");
+        var ticketButton = $(`<a href=${event.url} target="_blank" class="btn btn-block btn-danger mt-auto">`).text("Get Tickets");
 
         var eventImg = $(`<img class="card-img-top" src=${event.images[1].url} />`);
         var eventDivBody = $(`<div class="card-body d-flex flex-column">`);
@@ -103,7 +105,7 @@ $(document).ready(function () {
               var tempMinConverted = parseInt(1.8 * (owTempMin - 273) + 32);
               var weatherCond = result.weather[0].main;
 
-              var weatherEventName = $(`<p class="normal-font text-muted">`).append(tmEventName);
+              var weatherEventName = $(`<h3 class="title-font">`).append(tmEventName);
               var conditionPTag = $(`<p class="normal-font text-muted">`).append(weatherCond);
               var temperaturePTag = $(`<p class="normal-font text-muted">`).append(`Low: ${tempMinConverted}° - High: ${tempMaxConverted}°`);
 
@@ -168,9 +170,10 @@ $(document).ready(function () {
 
                 var tmZipCode = event._embedded.venues[0].postalCode;
 
-                var eventDiv = $(`<div class="card-wrapper d-flex flex-column col-12 col-md-4 mb-2">`);
-                eventDiv.attr(`${tmZipCode}`);
 
+                var eventDiv = $(`<div class="card-wrapper d-flex flex-column col-12 col-md-4 mb-2 pt-3">`);
+
+                eventDiv.attr(`${tmZipCode}`);
 
                 var eventImg = $(`<img class="card-img-top" src=${event.images[1].url}/>`);
                 var eventDivBody = $(`<div class="card-body d-flex flex-column">`);
@@ -178,7 +181,7 @@ $(document).ready(function () {
                 var eventH5 = $(`<h5 class="card-title title-font">`);
                 eventH5.text(event.name);
                 var eventP = $(`<p class="card-text normal-font text-muted">`);
-                var ticketButton = $(`<button class="btn btn-block btn-danger">`).text("Get Tickets!");
+                var ticketButton = $(`<button class="btn btn-block btn-danger mt-auto">`).text("Get Tickets!");
                 var venueName = event._embedded.venues[0].name
                 var eventDate = event.dates.start.localDate
                 var eventDateFormatted = moment(eventDate, "YYYY-MM-DDTHH:mm:ssZ").format("M-DD-YYYY");

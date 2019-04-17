@@ -104,8 +104,8 @@ option {
   width: 100%;
   height: 15vw;
   object-fit: cover;
-  border: solid black 1px;
-
+  border: solid 1px #adb5bd;
+  border-radius: 20px;
 
 }
 
@@ -118,7 +118,7 @@ option {
 
 .card-wrapper:hover {
 
-  box-shadow: 4px 10px 10px 0px #adb5bd;
+  box-shadow: 4px 1px 10px 0px #adb5bd;
 }
 
 .jumbotron {
